@@ -8,7 +8,7 @@ public class SimpleTaskManager {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
-        System.out.println("!!! System Zarządzania Zadaniami !!!");
+        System.out.println("### System Zarządzania Zadaniami @@@");
 
         while (running) {
             System.out.println("\n1. Pokaż zadania");
