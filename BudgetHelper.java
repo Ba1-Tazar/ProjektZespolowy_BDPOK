@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.FileWriter;  // Dodane dla BUD-9
-import java.io.IOException; // Dodane dla BUD-9
+import java.io.FileWriter;  // Dodane dla BUD-10
+import java.io.IOException; // Dodane dla BUD-10
 
 public class BudgetHelper {
     public static void displayMenu() {
@@ -13,7 +13,7 @@ public class BudgetHelper {
         System.out.println("5. Set Savings Goal");
         System.out.println("6. View Balance in EUR");
         System.out.println("7. Filter History by Category");
-        System.out.println("8. Export Data to File"); // Dodane dla BUD-9
+        System.out.println("8. Export Report to File"); // Dodane dla BUD-10
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -85,14 +85,13 @@ public class BudgetHelper {
                     System.out.println("No transactions found for this category.");
                 }
             } else if (choice.equals("8")) {
-                // BUD-9: Eksportowanie wszystkich danych do pliku budget_report.txt
+                // BUD-10: Eksport danych i historii do pliku report.txt
                 try {
-                    FileWriter writer = new FileWriter("budget_report.txt");
+                    FileWriter writer = new FileWriter("report.txt");
                     
                     writer.write("=== PERSONAL BUDGET REPORT ===\n");
                     writer.write(String.format("Current Balance: $%.2f\n", balance));
                     writer.write(String.format("Savings Goal: $%.2f\n", savingsGoal));
-                    writer.write(String.format("Remaining to Goal: $%.2f\n", (savingsGoal - balance)));
                     writer.write("\n--- Transaction History ---\n");
                     
                     if (transactions.isEmpty()) {
@@ -104,9 +103,9 @@ public class BudgetHelper {
                     }
                     
                     writer.close();
-                    System.out.println("Data exported successfully to 'budget_report.txt'!");
+                    System.out.println("Report exported successfully to 'report.txt'!");
                 } catch (IOException e) {
-                    System.out.println("An error occurred while exporting data to file.");
+                    System.out.println("An error occurred while exporting the report.");
                     e.printStackTrace();
                 }
             } else if (choice.equals("0")) {
