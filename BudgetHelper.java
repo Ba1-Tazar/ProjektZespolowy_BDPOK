@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.FileWriter;  // Dodane dla BUD-9
+import java.io.IOException; // Dodane dla BUD-9
 
 public class BudgetHelper {
     public static void displayMenu() {
@@ -10,7 +12,8 @@ public class BudgetHelper {
         System.out.println("4. View History");
         System.out.println("5. Set Savings Goal");
         System.out.println("6. View Balance in EUR");
-        System.out.println("7. Filter History by Category"); // Dodane dla BUD-8
+        System.out.println("7. Filter History by Category");
+        System.out.println("8. Export Data to File"); // Dodane dla BUD-9
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -65,14 +68,11 @@ public class BudgetHelper {
                 double balanceInEur = balance * euroExchangeRate;
                 System.out.printf("Your current balance in EUR is: €%.2f\n", balanceInEur);
             } else if (choice.equals("7")) {
-                // BUD-8: Logika filtrowania historii według podanej kategorii
                 System.out.print("Enter category to filter by: ");
                 String filterCategory = scanner.nextLine();
                 
                 System.out.printf("\n--- Filtered History for [%s] ---\n", filterCategory);
                 boolean found = false;
-                
-                // Przygotowujemy wzorzec do szukania, np. "[Food]"
                 String searchPattern = "[" + filterCategory + "]";
                 
                 for (String transaction : transactions) {
@@ -81,9 +81,33 @@ public class BudgetHelper {
                         found = true;
                     }
                 }
-                
                 if (!found) {
                     System.out.println("No transactions found for this category.");
+                }
+            } else if (choice.equals("8")) {
+                // BUD-9: Eksportowanie wszystkich danych do pliku budget_report.txt
+                try {
+                    FileWriter writer = new FileWriter("budget_report.txt");
+                    
+                    writer.write("=== PERSONAL BUDGET REPORT ===\n");
+                    writer.write(String.format("Current Balance: $%.2f\n", balance));
+                    writer.write(String.format("Savings Goal: $%.2f\n", savingsGoal));
+                    writer.write(String.format("Remaining to Goal: $%.2f\n", (savingsGoal - balance)));
+                    writer.write("\n--- Transaction History ---\n");
+                    
+                    if (transactions.isEmpty()) {
+                        writer.write("No transactions recorded yet.\n");
+                    } else {
+                        for (String transaction : transactions) {
+                            writer.write("- " + transaction + "\n");
+                        }
+                    }
+                    
+                    writer.close();
+                    System.out.println("Data exported successfully to 'budget_report.txt'!");
+                } catch (IOException e) {
+                    System.out.println("An error occurred while exporting data to file.");
+                    e.printStackTrace();
                 }
             } else if (choice.equals("0")) {
                 System.out.println("Goodbye!");
