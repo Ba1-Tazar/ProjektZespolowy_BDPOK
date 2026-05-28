@@ -8,7 +8,8 @@ public class BudgetHelper {
         System.out.println("2. Add Income");
         System.out.println("3. Add Expense");
         System.out.println("4. View History");
-        System.out.println("5. Set Savings Goal"); // Dodane dla BUD-5
+        System.out.println("5. Set Savings Goal");
+        System.out.println("6. View Balance in EUR"); // Dodane dla BUD-6
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -16,7 +17,7 @@ public class BudgetHelper {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         double balance = 1000.0; // Starting balance
-        double savingsGoal = 0.0; // BUD-5: Inicjalizacja zmiennej celu oszczędnościowego
+        double savingsGoal = 0.0; 
         ArrayList<String> transactions = new ArrayList<String>();
 
         while (true) {
@@ -26,7 +27,6 @@ public class BudgetHelper {
 
             if (choice.equals("1")) {
                 System.out.printf("Your current balance is: $%.2f\n", balance);
-                // BUD-5: Modyfikacja opcji 1, aby wyświetlała pozostałą kwotę do celu
                 System.out.printf("Remaining to goal: $%.2f\n", (savingsGoal - balance));
             } else if (choice.equals("2")) {
                 System.out.print("Enter income amount: ");
@@ -52,10 +52,14 @@ public class BudgetHelper {
                     }
                 }
             } else if (choice.equals("5")) {
-                // BUD-5: Obsługa nowej opcji menu do ustawiania celu
                 System.out.print("Enter your financial savings goal: ");
                 savingsGoal = Double.parseDouble(scanner.nextLine());
                 System.out.printf("Savings goal set to $%.2f successfully!\n", savingsGoal);
+            } else if (choice.equals("6")) {
+                // BUD-6: Przeliczenie balansu po sztywnym kursie EUR (0.92)
+                double euroExchangeRate = 0.92;
+                double balanceInEur = balance * euroExchangeRate;
+                System.out.printf("Your current balance in EUR is: €%.2f\n", balanceInEur);
             } else if (choice.equals("0")) {
                 System.out.println("Goodbye!");
                 break;
