@@ -4,6 +4,7 @@ public class BudgetHelper {
     public static void displayMenu() {
         System.out.println("\n--- Personal Budget Helper ---");
         System.out.println("1. Display current balance");
+        System.out.println("2. Add Income"); // Task 1
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -19,6 +20,12 @@ public class BudgetHelper {
 
             if (choice.equals("1")) {
                 System.out.println("Your current balance is: $" + balance);
+            } else if (choice.equals("2")) {
+                // Task 1: Income Logic
+                System.out.print("Enter income amount: ");
+                double income = Double.parseDouble(scanner.nextLine());
+                balance += income;
+                System.out.println("Income added successfully!");
             } else if (choice.equals("0")) {
                 System.out.println("Goodbye!");
                 break;
