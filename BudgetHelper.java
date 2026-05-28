@@ -10,6 +10,7 @@ public class BudgetHelper {
         System.out.println("4. View History");
         System.out.println("5. Set Savings Goal");
         System.out.println("6. View Balance in EUR");
+        System.out.println("7. Filter History by Category"); // Dodane dla BUD-8
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -36,7 +37,6 @@ public class BudgetHelper {
                 transactions.add(String.format("Added income: $%.2f", income));
                 System.out.println("Income added successfully!");
             } else if (choice.equals("3")) {
-                // BUD-7: Dodanie pytania o kategorię wydatku
                 System.out.print("Enter expense amount: ");
                 double expense = Double.parseDouble(scanner.nextLine());
                 
@@ -45,7 +45,6 @@ public class BudgetHelper {
                 
                 balance -= expense;
                 
-                // BUD-7: Zapisanie kategorii w historii zgodnie z kryteriami akceptacji
                 transactions.add(String.format("[%s] Spent: $%.2f", category, expense));
                 System.out.println("Expense added successfully!");
             } else if (choice.equals("4")) {
@@ -65,6 +64,27 @@ public class BudgetHelper {
                 double euroExchangeRate = 0.92;
                 double balanceInEur = balance * euroExchangeRate;
                 System.out.printf("Your current balance in EUR is: €%.2f\n", balanceInEur);
+            } else if (choice.equals("7")) {
+                // BUD-8: Logika filtrowania historii według podanej kategorii
+                System.out.print("Enter category to filter by: ");
+                String filterCategory = scanner.nextLine();
+                
+                System.out.printf("\n--- Filtered History for [%s] ---\n", filterCategory);
+                boolean found = false;
+                
+                // Przygotowujemy wzorzec do szukania, np. "[Food]"
+                String searchPattern = "[" + filterCategory + "]";
+                
+                for (String transaction : transactions) {
+                    if (transaction.contains(searchPattern)) {
+                        System.out.println("- " + transaction);
+                        found = true;
+                    }
+                }
+                
+                if (!found) {
+                    System.out.println("No transactions found for this category.");
+                }
             } else if (choice.equals("0")) {
                 System.out.println("Goodbye!");
                 break;
