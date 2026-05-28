@@ -1,11 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList; // Added for BUD-3
 
 public class BudgetHelper {
     public static void displayMenu() {
         System.out.println("\n--- Personal Budget Helper ---");
         System.out.println("1. Display current balance");
         System.out.println("2. Add Income");
-        System.out.println("3. Add Expense"); // Added for BUD-2
+        System.out.println("3. Add Expense");
+        System.out.println("4. View History"); // Added for BUD-3
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -13,6 +15,9 @@ public class BudgetHelper {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         double balance = 1000.0; // Starting balance
+        
+        // BUD-3: Initialize history tracking list
+        ArrayList<String> transactions = new ArrayList<String>();
 
         while (true) {
             displayMenu();
@@ -25,13 +30,28 @@ public class BudgetHelper {
                 System.out.print("Enter income amount: ");
                 double income = Double.parseDouble(scanner.nextLine());
                 balance += income;
+                
+                // BUD-3: Log income action
+                transactions.add("Added income: $" + income);
                 System.out.println("Income added successfully!");
             } else if (choice.equals("3")) {
-                // Task 2 (BUD-2): Expense Logic
                 System.out.print("Enter expense amount: ");
                 double expense = Double.parseDouble(scanner.nextLine());
                 balance -= expense;
+                
+                // BUD-3: Log expense action
+                transactions.add("Added expense: $" + expense);
                 System.out.println("Expense added successfully!");
+            } else if (choice.equals("4")) {
+                // BUD-3: Display all logged actions
+                System.out.println("\n--- Transaction History ---");
+                if (transactions.isEmpty()) {
+                    System.out.println("No transactions recorded yet.");
+                } else {
+                    for (String transaction : transactions) {
+                        System.out.println("- " + transaction);
+                    }
+                }
             } else if (choice.equals("0")) {
                 System.out.println("Goodbye!");
                 break;
