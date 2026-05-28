@@ -1,5 +1,5 @@
 import java.util.Scanner;
-import java.util.ArrayList; // Added for BUD-3
+import java.util.ArrayList;
 
 public class BudgetHelper {
     public static void displayMenu() {
@@ -7,7 +7,7 @@ public class BudgetHelper {
         System.out.println("1. Display current balance");
         System.out.println("2. Add Income");
         System.out.println("3. Add Expense");
-        System.out.println("4. View History"); // Added for BUD-3
+        System.out.println("4. View History");
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -15,8 +15,6 @@ public class BudgetHelper {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         double balance = 1000.0; // Starting balance
-        
-        // BUD-3: Initialize history tracking list
         ArrayList<String> transactions = new ArrayList<String>();
 
         while (true) {
@@ -25,25 +23,25 @@ public class BudgetHelper {
             String choice = scanner.nextLine();
 
             if (choice.equals("1")) {
-                System.out.println("Your current balance is: $" + balance);
+                // BUD-4: Formatowanie balansu do 2 miejsc po przecinku
+                System.out.printf("Your current balance is: $%.2f\n", balance);
             } else if (choice.equals("2")) {
                 System.out.print("Enter income amount: ");
                 double income = Double.parseDouble(scanner.nextLine());
                 balance += income;
                 
-                // BUD-3: Log income action
-                transactions.add("Added income: $" + income);
+                // BUD-4: Formatowanie kwoty w historii transakcji
+                transactions.add(String.format("Added income: $%.2f", income));
                 System.out.println("Income added successfully!");
             } else if (choice.equals("3")) {
                 System.out.print("Enter expense amount: ");
                 double expense = Double.parseDouble(scanner.nextLine());
                 balance -= expense;
                 
-                // BUD-3: Log expense action
-                transactions.add("Added expense: $" + expense);
+                // BUD-4: Formatowanie kwoty w historii transakcji
+                transactions.add(String.format("Added expense: $%.2f", expense));
                 System.out.println("Expense added successfully!");
             } else if (choice.equals("4")) {
-                // BUD-3: Display all logged actions
                 System.out.println("\n--- Transaction History ---");
                 if (transactions.isEmpty()) {
                     System.out.println("No transactions recorded yet.");
