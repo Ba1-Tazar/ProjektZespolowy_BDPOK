@@ -1,0 +1,27 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# BlueJ project files (if anyone on the team uses BlueJ)
+*.ctxt
+.mtj.tmp/
+
+# IntelliJ IDEA files
+.idea/
+*.iml
+*.iws
+
+# Eclipse files
+.metadata/
+.classpath
+.project
+.settings/
+
+# NetBeans files
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
