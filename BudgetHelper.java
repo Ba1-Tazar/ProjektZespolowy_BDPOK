@@ -9,7 +9,7 @@ public class BudgetHelper {
         System.out.println("3. Add Expense");
         System.out.println("4. View History");
         System.out.println("5. Set Savings Goal");
-        System.out.println("6. View Balance in EUR"); // Dodane dla BUD-6
+        System.out.println("6. View Balance in EUR");
         // Future features will be added here
         System.out.println("0. Exit");
     }
@@ -36,11 +36,17 @@ public class BudgetHelper {
                 transactions.add(String.format("Added income: $%.2f", income));
                 System.out.println("Income added successfully!");
             } else if (choice.equals("3")) {
+                // BUD-7: Dodanie pytania o kategorię wydatku
                 System.out.print("Enter expense amount: ");
                 double expense = Double.parseDouble(scanner.nextLine());
+                
+                System.out.print("Enter expense category (e.g., Food, Bills): ");
+                String category = scanner.nextLine();
+                
                 balance -= expense;
                 
-                transactions.add(String.format("Added expense: $%.2f", expense));
+                // BUD-7: Zapisanie kategorii w historii zgodnie z kryteriami akceptacji
+                transactions.add(String.format("[%s] Spent: $%.2f", category, expense));
                 System.out.println("Expense added successfully!");
             } else if (choice.equals("4")) {
                 System.out.println("\n--- Transaction History ---");
@@ -56,7 +62,6 @@ public class BudgetHelper {
                 savingsGoal = Double.parseDouble(scanner.nextLine());
                 System.out.printf("Savings goal set to $%.2f successfully!\n", savingsGoal);
             } else if (choice.equals("6")) {
-                // BUD-6: Przeliczenie balansu po sztywnym kursie EUR (0.92)
                 double euroExchangeRate = 0.92;
                 double balanceInEur = balance * euroExchangeRate;
                 System.out.printf("Your current balance in EUR is: €%.2f\n", balanceInEur);
